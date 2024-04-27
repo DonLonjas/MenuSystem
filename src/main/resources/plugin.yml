@@ -1,0 +1,16 @@
+name: MenuSystem
+version: '${version}'
+main: org.lonjas.menusystem.MenuSystem
+api-version: '1.20'
+softdepend:
+  - PlaceholderAPI
+commands:
+  menu-reload:
+    description: Reloads the MenuSystem
+    aliases: [ms-reload]
+  menu:
+    description: Opens a menu
+    aliases: [ms-open]
+  createmenu:
+    description: Creates a new menu
+    aliases: [ms-create]

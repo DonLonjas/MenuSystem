@@ -1,0 +1,29 @@
+name: Default Menu
+size: 27
+frame-item: BLACK_STAINED_GLASS_PANE
+items:
+  item1:
+    slot: 20
+    Material: COMPASS
+    name: Random Teleport
+    lore:
+      - Teleport to a random location
+      - in the world
+  item2:
+    slot: 22
+    Material: DIAMOND_SWORD
+    name: Commit Suicide
+    lore:
+      - Press this item to
+      - commit suicide
+  item3:
+    slot: 24
+    Material: BUCKET
+    name: Clear Inventory
+    lore:
+      - Press this item to
+      - clear inventory
+  item4:
+    slot: 0
+    Material: BARRIER
+    name: Close Menu

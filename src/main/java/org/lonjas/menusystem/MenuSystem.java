@@ -11,8 +11,6 @@ import java.util.Objects;
 public final class MenuSystem extends JavaPlugin implements Listener{
     private FileConfiguration messagesConfig;
 
-    // Resto del código...
-
     public FileConfiguration getMessagesConfig() {
         return this.messagesConfig;
     }

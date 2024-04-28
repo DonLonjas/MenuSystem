@@ -18,13 +18,13 @@ public final class MenuSystem extends JavaPlugin implements Listener{
 
     @Override
     public void onEnable() {
-        // Crear la carpeta "menu" si no existe
+
         File menuFolder = new File(getDataFolder(), "menu");
         if (!menuFolder.exists()) {
             menuFolder.mkdirs();
         }
 
-        // Crear el archivo "default.yml" si no existe
+
         File defaultMenuFile = new File(menuFolder, "default.yml");
         if (!defaultMenuFile.exists()) {
             saveResource("menu/default.yml", false);

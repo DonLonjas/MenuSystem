@@ -5,8 +5,11 @@ This project, MenuSystem, is a comprehensive menu management system for Minecraf
 **Key Features:**
 
   ⟡ Create menus with the /menu-create "menuname" command.
+  
   ⟡ List all available menus with the /menu-list command.
+  
   ⟡ Delete menus with the /menu-delete "menuname" command.
+  
   ⟡ Check the plugin version with the /menu-version command.
 
 Installation and Usage:  

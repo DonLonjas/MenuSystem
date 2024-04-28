@@ -26,7 +26,7 @@ public class CreateMenuCommand implements CommandExecutor {
             File menuFile = new File(plugin.getDataFolder() + "/menu", menuName + ".yml");
             if (!menuFile.exists()) {
                 try {
-                    // Copia el contenido de default.yml del JAR del plugin al nuevo archivo de menú
+
                     plugin.saveResource("menu/default.yml", false);
                     Files.copy(new File(plugin.getDataFolder(), "menu/default.yml").toPath(), menuFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     sender.sendMessage(ChatColor.translateAlternateColorCodes( '&' ,plugin.getMessagesConfig().getString("menu-prefix") +  plugin.getMessagesConfig().getString("menu-create")) + menuName);

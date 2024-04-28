@@ -4,13 +4,18 @@ This project, MenuSystem, is a comprehensive menu management system for Minecraf
 
 **Key Features:**
 
-  ⟡ Create menus with the /menu-create "menuname" command.
-  
-  ⟡ List all available menus with the /menu-list command.
-  
-  ⟡ Delete menus with the /menu-delete "menuname" command.
-  
-  ⟡ Check the plugin version with the /menu-version command.
+ ◆ Create menus with the /menu-create command. This command creates a new menu for your Minecraft server.
+
+ ◆ Open menus with the /menu-open command. This command opens a specified menu.
+
+ ◆ List all available menus with the /menu-list command. This command lists all the menus that have been created.
+
+ ◆ Delete menus with the /menu-delete command. This command deletes a specified menu.
+
+ ◆ Reload the MenuSystem with the /menu-reload command. This command reloads the entire MenuSystem.
+
+ ◆ Check the plugin version with the /menu-version command. This command shows the current version of the MenuSystem plugin.
+
 
 **Installation and Usage:**
 

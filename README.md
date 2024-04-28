@@ -30,4 +30,4 @@ Contributions to improve and expand MenuSystem are welcome! If you have ideas fo
 
 **Contact:**
 
-For any questions, suggestions, or issues related to MenuSystem, you can contact us via Discord: mrlonjas.
+For any questions, suggestions, or issues related to MenuSystem, you can contact me via Discord: mrlonjas.

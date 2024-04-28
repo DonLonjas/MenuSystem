@@ -12,9 +12,17 @@ This project, MenuSystem, is a comprehensive menu management system for Minecraf
   
   ⟡ Check the plugin version with the /menu-version command.
 
-Installation and Usage:  
-Download the MenuSystem jar file from the repository.
-Place the jar file into the plugins folder of your Minecraft server.
-Restart the server to load the plugin.
-Use the provided commands to manage your menus.
-Contribution:  Contributions to improve and expand MenuSystem are welcome! If you have ideas for new features or improvements in functionality, feel free to submit a pull request.  Contact:  For any questions, suggestions, or issues related to MenuSystem, you can contact us via Discord: DonLonjas.
+**Installation and Usage:**
+
+* Download the project's jar file from the repository.
+* Extract the content into the plugins folder of your Minecraft server.
+* Restart the server to apply the changes.
+* Enjoy your Minecraft server!
+
+**Contribution:**  
+
+Contributions to improve and expand MenuSystem are welcome! If you have ideas for new features or improvements in functionality, feel free to submit a pull request.  
+
+**Contact:**
+
+For any questions, suggestions, or issues related to MenuSystem, you can contact us via Discord: mrlonjas.

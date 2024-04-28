@@ -1,21 +1,21 @@
 package org.lonjas.menusystem;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.ChatColor;
-
 import java.io.File;
 import java.util.Objects;
 
 public final class MenuSystem extends JavaPlugin implements Listener{
+    private FileConfiguration messagesConfig;
 
+    // Resto del código...
+
+    public FileConfiguration getMessagesConfig() {
+        return this.messagesConfig;
+    }
     @Override
     public void onEnable() {
         // Crear la carpeta "menu" si no existe
@@ -30,11 +30,23 @@ public final class MenuSystem extends JavaPlugin implements Listener{
             saveResource("menu/default.yml", false);
         }
 
+        File messagesFile = new File(getDataFolder(), "messages.yml");
+        if (!messagesFile.exists()) {
+            saveResource("messages.yml", false);
+        }
+        this.messagesConfig = YamlConfiguration.loadConfiguration(messagesFile);
+
         Bukkit.getPluginManager().registerEvents(this, this);
+
+        MenuSlots menuSlots = new MenuSlots(this);
+        Objects.requireNonNull(this.getCommand("menu-open")).setExecutor(menuSlots);
+        Bukkit.getPluginManager().registerEvents(new MenuListener(this, menuSlots), this);
+
+        Objects.requireNonNull(this.getCommand("menu-version")).setExecutor(new MenuVersionCommand(this));
+        Objects.requireNonNull(this.getCommand("menu-delete")).setExecutor(new MenuDeleteCommand(this));
+        Objects.requireNonNull(this.getCommand("menu-list")).setExecutor(new MenuListCommand(this));
         Objects.requireNonNull(this.getCommand("menu-reload")).setExecutor(new ReloadCommand(this));
-        Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
-        Objects.requireNonNull(this.getCommand("menu")).setExecutor(new MenuSlots(this));
-        Objects.requireNonNull(this.getCommand("createmenu")).setExecutor(new CreateMenuCommand(this));
+        Objects.requireNonNull(this.getCommand("menu-create")).setExecutor(new CreateMenuCommand(this));
 
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
@@ -42,13 +54,5 @@ public final class MenuSystem extends JavaPlugin implements Listener{
         } else {
             getLogger().warning("Could not find PlaceholderAPI! This plugin is required.");
         }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onJoin(PlayerJoinEvent event) {
-
-        String joinText = PlaceholderAPI.setPlaceholders(event.getPlayer(), ChatColor.translateAlternateColorCodes('&',"&f%player_name% &ejoined the server! They are rank %vault_prefix%"));
-        event.setJoinMessage(joinText+"§r");
-
     }
 }

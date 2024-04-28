@@ -1,63 +1,56 @@
 package org.lonjas.menusystem;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import java.util.Random;
+
+import java.io.File;
+import java.util.List;
 
 public class MenuListener implements Listener {
 
-    private Location randomLocation(World world) {
-        Random random = new Random();
+    private MenuSystem plugin;
+    private MenuSlots menuSlots;
 
-        int x = random.nextInt(1000) - 1500;
-        int z = random.nextInt(1000) - 1500;
-        int y = world.getHighestBlockYAt(x, z);
-
-        return new Location(world, x, y, z);
+    public MenuListener(MenuSystem plugin, MenuSlots menuSlots) {
+        this.plugin = plugin;
+        this.menuSlots = menuSlots;
     }
 
     @EventHandler
-    public void onClick(InventoryClickEvent e){
+    public void onClick(InventoryClickEvent e) {
+        String menuName = menuSlots.getMenuName();
 
-        if (ChatColor.translateAlternateColorCodes('&', e.getView().getTitle()).equals(ChatColor.RED.toString() + ChatColor.BOLD + "Menu")
-                && e.getCurrentItem() != null){
+        File menuFile = new File(plugin.getDataFolder() + "/menu", menuName + ".yml");
+        if (menuFile.exists()) {
             e.setCancelled(true);
+            FileConfiguration menuConfig = YamlConfiguration.loadConfiguration(menuFile);
+            int size = menuConfig.getInt("size");
             Player player = (Player) e.getWhoClicked();
-            switch (e.getRawSlot()){
-                case 0:
-                    player.sendMessage(ChatColor.RED + "Closing menu...");
-                    player.closeInventory();
-                    break;
-                case 20:
-                    player.teleport(randomLocation(player.getWorld()));
-                    player.sendMessage(ChatColor.GREEN + "Teleporting...");
-                    player.closeInventory();
-                    break;
-                case 22:
-                    player.closeInventory();
-                    player.setHealth(0);
-                    player.sendMessage(ChatColor.RED + "You have commited suicide.");
-                    break;
-                case 24:
-                    player.closeInventory();
-                    player.getInventory().clear();
-                    player.sendMessage(ChatColor.RED + "You inventory has been cleared.");
-                    break;
-                default:
-                    break;
-
-
+            for (int i = 0; i < size; i++) {
+                String iString = String.valueOf(i);
+                if (menuConfig.contains("items.item-" + iString + ".commands")) {
+                    List<String> commands = menuConfig.getStringList("items.item-" + iString + ".commands");
+                    if (commands != null) {
+                        if (e.getRawSlot() == i) {
+                            for (String command : commands) {
+                                String commandToExecute = command.replace("{player}", player.getName());
+                                Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), commandToExecute);
+                            }
+                        }
+                    }
+                }
             }
-
         }
 
+        // Si el clic ocurrió fuera del inventario, no cancelar el evento
+        if (e.getRawSlot() >= e.getInventory().getSize()) {
+            e.setCancelled(false);
+        }
     }
-
-
 }

@@ -8,9 +8,24 @@ commands:
   menu-reload:
     description: Reloads the MenuSystem
     aliases: [ms-reload]
-  menu:
+    permission: ms.menu-reload
+  menu-open:
     description: Opens a menu
     aliases: [ms-open]
-  createmenu:
+    permission: ms.menu-open
+  menu-create:
     description: Creates a new menu
     aliases: [ms-create]
+    permission: ms.menu-create
+  menu-list:
+    description: Lists all available menus
+    aliases: [ ms-list ]
+    permission: ms.menu-list
+  menu-delete:
+    description: Deletes a menu
+    aliases: [ ms-delete ]
+    permission: ms.menu-delete
+  menu-version:
+    description: Shows the version of the MenuSystem plugin
+    aliases: [ ms-version ]
+    permission: ms.menu-version

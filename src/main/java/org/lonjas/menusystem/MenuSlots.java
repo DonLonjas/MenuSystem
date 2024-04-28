@@ -21,36 +21,42 @@ import java.util.List;
 public class MenuSlots implements CommandExecutor {
     private final MenuSystem plugin;
 
+    private String menuName;
+
     public MenuSlots(MenuSystem plugin) {
         this.plugin = plugin;
+    }
+
+    public String getMenuName() {
+        return this.menuName;
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
         if(sender instanceof Player player){
             if (args.length == 1) {
-                String menuName = args[0];
+                this.menuName = args[0];
                 File menuFile = new File(plugin.getDataFolder() + "/menu", menuName + ".yml");
                 if (menuFile.exists()) {
                     FileConfiguration menuConfig = YamlConfiguration.loadConfiguration(menuFile);
-                    // Create a new inventory with 45 slots
-                    // size will be 9, 18, 27, 36, 45, 54
+
                     int size = menuConfig.getInt("size");
 
                     Inventory inv = Bukkit.createInventory(null, size, ChatColor.translateAlternateColorCodes('&', menuConfig.getString("name")));
                     for (int i = 0; i < size; i++) {
-                        String iString = String.valueOf(i + 1);
-                        if (menuConfig.contains("items.item"+ iString + ".material")) {
-                            String materialName = menuConfig.getString("items.item"+ iString + ".material");
+
+                        String iString = String.valueOf(i);
+                        if (menuConfig.contains("items.item-"+ iString)) {
+                            String materialName = menuConfig.getString("items.item-" + iString + ".material");
                             Material itemMaterial = Material.getMaterial(materialName);
                             if (itemMaterial != null) {
                                 ItemStack itemStack = new ItemStack(itemMaterial);
                                 ItemMeta itemMeta = itemStack.getItemMeta();
                                 assert itemMeta != null;
-                                itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', menuConfig.getString("items.item"+ iString + ".name")));
-                                itemMeta.setLore(List.of(ChatColor.translateAlternateColorCodes('&', Arrays.toString(menuConfig.getStringList("items.item"+ iString + ".lore").toArray(new String[0])))));
+                                itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', menuConfig.getString("items.item-"+ iString + ".name")));
+                                itemMeta.setLore(List.of(ChatColor.translateAlternateColorCodes('&', Arrays.toString(menuConfig.getStringList("items.item-"+ iString + ".lore").toArray(new String[0])))));
                                 itemStack.setItemMeta(itemMeta);
-                                inv.setItem(menuConfig.getInt("items.item"+ iString + ".slot"), itemStack);
+                                inv.setItem(i, itemStack);
                             }
                             else {
                                 // handle the case where the material does not exist

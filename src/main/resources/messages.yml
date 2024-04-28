@@ -1,0 +1,7 @@
+menu-prefix: '&7[&bMenuSystem&7] '
+menu-create: '&aMenu created! whit the name: '
+menu-create-error: '&cAn error occurred while creating the menu. '
+menu-already-exists: '&cA menu with that name already exists.'
+menu-create-usage: '&aUsage: /menu-create <name>'
+menu-config-reload: '&aMenuSystem plugin has been reloaded.'
+menu-config-reload-error: '&cYou do not have permission to reload the plugin.'

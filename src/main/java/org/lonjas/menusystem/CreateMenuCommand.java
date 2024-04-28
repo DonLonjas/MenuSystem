@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class CreateMenuCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        FileConfiguration messagesConfig = plugin.getMessagesConfig();
         if (args.length == 1) {
             String menuName = args[0];
             File menuFile = new File(plugin.getDataFolder() + "/menu", menuName + ".yml");
@@ -27,16 +29,16 @@ public class CreateMenuCommand implements CommandExecutor {
                     // Copia el contenido de default.yml del JAR del plugin al nuevo archivo de menú
                     plugin.saveResource("menu/default.yml", false);
                     Files.copy(new File(plugin.getDataFolder(), "menu/default.yml").toPath(), menuFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    sender.sendMessage(ChatColor.GREEN + "Menu " + menuName + " has been created.");
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes( '&' ,plugin.getMessagesConfig().getString("menu-prefix") +  plugin.getMessagesConfig().getString("menu-create")) + menuName);
                 } catch (IOException e) {
-                    sender.sendMessage(ChatColor.RED + "An error occurred while creating the menu.");
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes( '&' ,plugin.getMessagesConfig().getString("menu-prefix") +  plugin.getMessagesConfig().getString("menu-create-error")));
                     e.printStackTrace();
                 }
             } else {
-                sender.sendMessage(ChatColor.RED + "A menu with that name already exists.");
+                sender.sendMessage(ChatColor.translateAlternateColorCodes( '&' ,plugin.getMessagesConfig().getString("menu-prefix") +  plugin.getMessagesConfig().getString("menu-already-exists")));
             }
         } else {
-            sender.sendMessage(ChatColor.RED + "Usage: /createmenu <name>");
+            sender.sendMessage(ChatColor.translateAlternateColorCodes( '&' ,plugin.getMessagesConfig().getString("menu-prefix") +  plugin.getMessagesConfig().getString("menu-create-usage")));
         }
         return true;
     }

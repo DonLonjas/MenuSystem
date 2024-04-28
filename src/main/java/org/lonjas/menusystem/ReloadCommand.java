@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 public class ReloadCommand implements CommandExecutor {
@@ -12,14 +13,17 @@ public class ReloadCommand implements CommandExecutor {
     public ReloadCommand(MenuSystem plugin) {
         this.plugin = plugin;
     }
+
+
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        FileConfiguration messagesConfig = plugin.getMessagesConfig();
         if (command.getName().equalsIgnoreCase("menu-reload")) {
             if (sender.hasPermission("menusystem.reload")) {
                 plugin.reloadConfig();
-                sender.sendMessage(ChatColor.GREEN + "MenuSystem plugin has been reloaded.");
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.getMessagesConfig().getString("menu-prefix") + plugin.getMessagesConfig().getString("menu-config-reload")));
                 return true;
             } else {
-                sender.sendMessage(ChatColor.RED + "You do not have permission to reload the plugin.");
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.getMessagesConfig().getString("menu-prefix") + plugin.getMessagesConfig().getString("menu-config-reload-error")));
                 return true;
             }
         }

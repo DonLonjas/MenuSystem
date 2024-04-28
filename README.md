@@ -2,7 +2,7 @@
 
 This project, MenuSystem, is a comprehensive menu management system for Minecraft servers. It provides a set of commands to create, list, delete menus and check the plugin version. The plugin is designed to be easy to use and highly customizable, allowing server administrators to create unique and engaging menus for their players. Although we are still in the initial phases, we are planning to implement more features in the future, such as a menu editor and more utilities.  
 
-**Key Features:**
+**Features:**
 
  ◆ Create menus with the /menu-create command. This command creates a new menu for your Minecraft server.
 
@@ -15,6 +15,8 @@ This project, MenuSystem, is a comprehensive menu management system for Minecraf
  ◆ Reload the MenuSystem with the /menu-reload command. This command reloads the entire MenuSystem.
 
  ◆ Check the plugin version with the /menu-version command. This command shows the current version of the MenuSystem plugin.
+
+ ◆ Placeholders API support.
 
 
 **Installation and Usage:**

@@ -33,8 +33,6 @@ public class MenuSlots implements CommandExecutor {
                 File menuFile = new File(plugin.getDataFolder() + "/menu", menuName + ".yml");
                 if (menuFile.exists()) {
                     FileConfiguration menuConfig = YamlConfiguration.loadConfiguration(menuFile);
-                    // Create a new inventory with 45 slots
-                    // size will be 9, 18, 27, 36, 45, 54
                     int size = menuConfig.getInt("size");
 
                     Inventory inv = Bukkit.createInventory(null, size, ChatColor.translateAlternateColorCodes('&', menuConfig.getString("name")));
@@ -53,7 +51,6 @@ public class MenuSlots implements CommandExecutor {
                                 inv.setItem(menuConfig.getInt("items.item"+ iString + ".slot"), itemStack);
                             }
                             else {
-                                // handle the case where the material does not exist
                                 System.out.println("Material " + materialName + " does not exist.");
                             }
 
